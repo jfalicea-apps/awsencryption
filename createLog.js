@@ -10,7 +10,7 @@ const logger = {
     try {
       fs.appendFileSync(
         this.homeFolder + `/reports/${fileName}`,
-        `\n` + content
+        content + `\n`
       );
     } catch (err) {
       consol.log(err);
