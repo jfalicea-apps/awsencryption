@@ -1,0 +1,14 @@
+{
+  "name": "awsencryption",
+  "version": "1.0.0",
+  "description": "verify that RDS instances are encrypted.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "jfalicea",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.804.0"
+  }
+}
