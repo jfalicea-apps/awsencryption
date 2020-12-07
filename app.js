@@ -11,28 +11,42 @@ const getRDSInstances = new Promise((resolve, reject) => {
 
 //handle data: get name and encryption status
 async function createDBEncryptionList() {
+  //Resolve RDS Data Promise
   const rdsInstances = await getRDSInstances;
+  //returns an array of objects - data abstracted from the AWS Request
   const dbEncryptedList = rdsInstances.DBInstances.map((config) => {
+    //destructuring the information from each RDS config item
     const { DBInstanceIdentifier, StorageEncrypted } = config;
     let d = new Date();
-    let tmpObj = {
-      dbName: DBInstanceIdentifier,
+    //determine if the the RDS instance is an exception
+    const isException = StorageEncrypted ? false : true;
+    //smaller config object built fromt he destructured information.
+    let smallerConfigObj = {
+      dbInstanceName: DBInstanceIdentifier,
       isEncrypted: StorageEncrypted,
       dateReviewed: `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`,
+      isException: isException,
     };
-    return tmpObj;
+    return smallerConfigObj;
   });
+  //as noted above - array of objects for the report
   return dbEncryptedList;
 }
 
 //create the report
 async function dbEncryptionReport() {
+  let d = new Date();
   // array of encryption'd db info
   const info = await createDBEncryptionList();
-  // logger.appendToReport(`${Date.now()}`, info);
   info.forEach((config) => {
+    //convert the JSON object into a string
     let stringConfig = JSON.stringify(config);
-    logger.appendToReport(`x`, stringConfig);
+    //utility function to append each config
+    logger.appendToReport(
+      `Encryption Audit Report: 
+      ${d.getMonth() + 1}.${d.getDate()}.${d.getFullYear()}.txt`,
+      stringConfig
+    );
   });
   return;
 }

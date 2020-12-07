@@ -13,7 +13,7 @@ const logger = {
         content + `\n`
       );
     } catch (err) {
-      consol.log(err);
+      console.log(err);
     }
   },
 };
