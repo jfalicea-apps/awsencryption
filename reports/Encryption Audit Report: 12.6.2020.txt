@@ -1,2 +1,2 @@
-{"dbName":"database-1","isEncrypted":false,"dateReviewed":"12/6/2020","isException":true}
-{"dbName":"database-2","isEncrypted":false,"dateReviewed":"12/6/2020","isException":true}
+{"dbInstanceName":"database-1","isEncrypted":false,"dateReviewed":"12/6/2020","isException":true}
+{"dbInstanceName":"database-2","isEncrypted":false,"dateReviewed":"12/6/2020","isException":true}

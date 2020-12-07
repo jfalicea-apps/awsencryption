@@ -9,6 +9,7 @@
   "author": "jfalicea",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.804.0"
+    "aws-sdk": "^2.804.0",
+    "cron": "^1.8.2"
   }
 }

@@ -1,6 +1,6 @@
 const { rds } = require('./awsService/rds');
 const { logger } = require('./createLog');
-
+const CronJob = require('cron').CronJob;
 //resolve the AWS promise to obtain data
 const getRDSInstances = new Promise((resolve, reject) => {
   rds.describeDBInstances((err, data) => {
@@ -43,12 +43,16 @@ async function dbEncryptionReport() {
     let stringConfig = JSON.stringify(config);
     //utility function to append each config
     logger.appendToReport(
-      `Encryption Audit Report: 
-      ${d.getMonth() + 1}.${d.getDate()}.${d.getFullYear()}.txt`,
+      `Encryption Audit Report: ${
+        d.getMonth() + 1
+      }.${d.getDate()}.${d.getFullYear()}.txt`,
       stringConfig
     );
   });
-  return;
+  //
+  return job.stop();
 }
 
-dbEncryptionReport();
+const job = new CronJob('0 0 1 */3 *', dbEncryptionReport);
+
+job.start();
